@@ -1,14 +1,10 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.core.session import SessionLocal
+from app.core.dependencies import get_db
 from app.crud import train as crud_train
-from app.schemas.train import  TrainNameResponse
+from app.schemas.train import TrainNameResponse
 
 router = APIRouter()
-
-async def get_db():
-    async with SessionLocal() as session:
-        yield session
 
 
 @router.get("/names", response_model=list[TrainNameResponse])
