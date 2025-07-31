@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+
 from app.api.endpoints.private import train as train_router
 
 api_router = APIRouter()

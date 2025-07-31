@@ -15,7 +15,7 @@ sys.path.append(os.getcwd())
 
 # --- IMPORTANT: Import your models and Base ---
 from app.db.base import Base  # Import Base for Alembic metadata
-from app.models import base_models  # Import all models to ensure they are registered
+from app.db import base_models  # Import all models to ensure they are registered
 
 # --- IMPORTANT: Dynamically load database URL from your app's settings ---
 from app.core.config import get_settings
