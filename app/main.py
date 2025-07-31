@@ -1,18 +1,17 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from app.api import api_v1
-from app.db.base import Base
 from app.core.session import engine
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup: Create tables
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-    yield
-    # Shutdown: Close database connections
+    print("Application startup initiated.")
+  
+    yield 
+    print("Application shutdown initiated.")
     await engine.dispose()
+ 
 
 
 app = FastAPI(lifespan=lifespan)

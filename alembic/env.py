@@ -13,8 +13,9 @@ import os
 import sys
 sys.path.append(os.getcwd())
 
-# --- IMPORTANT: Import your Base (which now imports all models) ---
-from app.db.base import Base # This single import makes all models in base.py discoverable
+# --- IMPORTANT: Import your models and Base ---
+from app.db.base import Base  # Import Base for Alembic metadata
+from app.models import base_models  # Import all models to ensure they are registered
 
 # --- IMPORTANT: Dynamically load database URL from your app's settings ---
 from app.core.config import get_settings
