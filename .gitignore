@@ -1,0 +1,25 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+env/
+venv/
+myenv/
+
+# Environment variables
+.env
+
+# VSCode settings (optional)
+.vscode/
+
+
+# Alembic migration backups (optional)
+alembic/versions/*.pyc
+# Ignore all __pycache__ directories
+*/*/__pycache__
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.py[cod]
