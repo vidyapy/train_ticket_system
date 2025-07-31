@@ -1,7 +1,7 @@
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import relationship
-from app.db.base import Base
+from app.db.base import Base 
 
 class Train(Base):
     __tablename__ = "trains"
