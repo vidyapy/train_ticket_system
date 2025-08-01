@@ -16,8 +16,13 @@ class TicketCreateResponse(BaseModel):
 
     class Config:
         from_attributes = True
-        
+
 
 class BookingID(BaseModel):
     booking_id: UUID
+
+
+class TatkalRequest(BaseModel):
+    train_id: UUID
+    seats: int
 

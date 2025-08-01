@@ -78,3 +78,11 @@ async def get_user_by_id(user_id: int, db: AsyncSession):
         User.is_deleted == False
         ))
     return result.scalar_one_or_none()
+
+
+def is_tatkal_window_open(departure_time: datetime, now: datetime = None) -> bool:
+    if now is None:
+        now = datetime.utcnow()
+    tatkal_start = departure_time - timedelta(hours=2)
+    tatkal_end = tatkal_start + timedelta(minutes=10)
+    return tatkal_start <= now <= tatkal_end

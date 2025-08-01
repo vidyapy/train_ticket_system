@@ -4,8 +4,9 @@ from typing import Any
 from uuid import UUID
 
 from app.core.dependencies import get_db
-from app.schemas.booking import BookTrainRequest, BookingID
+from app.schemas.booking import BookTrainRequest, BookingID, TatkalRequest
 from app.crud import booking as crud_booking
+from app.crud import tatkal as crud_tatkal
 from app.helpers.common import create_response
 from app.core.dependencies import get_current_user
 from app.models.user import User 
@@ -35,3 +36,16 @@ async def cancel_ticket(
     if result:
         return create_response(200, "Ticket cancelled successfully", result)
     raise HTTPException(status_code=404, detail="Booking not found or cancellation failed")
+
+@router.post("/book-tatkal/")
+async def book_tatkal(
+    request_data: TatkalRequest,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user)
+):
+    """Book a Tatkal ticket"""
+    result = await crud_tatkal.book_tatkal(db, request_data, user)
+    if result:
+        return create_response(201, "Tatkal ticket booked successfully", result)
+    raise HTTPException(status_code=400, detail="Tatkal booking failed")
+
