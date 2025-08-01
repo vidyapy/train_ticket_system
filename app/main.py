@@ -2,9 +2,10 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi import Request, status
 from fastapi.exceptions import RequestValidationError, StarletteHTTPException
+
 from app.helpers.common import create_error_response, format_pydantic_error
 from app.core.config import get_settings
-
+from app.services.email_scheduler import start_scheduler
 from app.api import api_v1
 from app.core.session import engine
 
@@ -12,6 +13,7 @@ from app.core.session import engine
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     print("Application startup initiated.")
+    start_scheduler()
   
     yield 
     print("Application shutdown initiated.")

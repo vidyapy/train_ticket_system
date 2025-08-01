@@ -20,6 +20,7 @@ async def create_user(db: AsyncSession, request_data: CreateUserRequest):
     db.add(new_user)
     await db.commit()
     await db.refresh(new_user)
+    
     return True
 
 async def authenticate_user(db: AsyncSession, request_data: LoginRequest):

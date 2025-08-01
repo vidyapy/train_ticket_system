@@ -33,6 +33,8 @@ class Booking(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     is_deleted = Column(Boolean, default=False)
+    is_tatkal = Column(Boolean, default=False)
+
 
     # Relationships (optional but recommended)
     user = relationship("User", back_populates="bookings")

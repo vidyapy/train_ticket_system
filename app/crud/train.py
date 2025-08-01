@@ -5,6 +5,7 @@ from fastapi import HTTPException, status
 from app.models.train import Train
 from app.models.user import User
 from app.schemas.train import TrainCreateRequest, TrainCreateResponse
+from app.helpers.email import send_email
 
 
 async def view_train(db: AsyncSession, user: User):
@@ -26,7 +27,6 @@ async def view_train(db: AsyncSession, user: User):
             "available_seats": train.available_seats,
             "waiting_list_count": waiting_list
         })
-
     return train_list
 
 
