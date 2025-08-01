@@ -7,7 +7,8 @@ from sqlalchemy import (
     String,
     DateTime,
     ForeignKey,
-    Enum as SqlEnum
+    Enum as SqlEnum,
+    Boolean
 )
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
@@ -27,11 +28,11 @@ class Booking(Base):
 
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
     train_id = Column(UUID(as_uuid=True), ForeignKey("trains.id"), nullable=False)
-
-    seat_number = Column(Integer, nullable=True)
-    booking_time = Column(DateTime, default=datetime.utcnow)
-
     status = Column(SqlEnum(BookingStatus, native_enum=False), default=BookingStatus.WAITING, nullable=False)
+    seats_booked = Column(Integer, default=1, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    is_deleted = Column(Boolean, default=False)
 
     # Relationships (optional but recommended)
     user = relationship("User", back_populates="bookings")
