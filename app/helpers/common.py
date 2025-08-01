@@ -1,9 +1,14 @@
 from typing import Any
+from datetime import datetime, timedelta, timezone
+from sqlalchemy.ext.asyncio import AsyncSession
 from pydantic import BaseModel
 from fastapi import Request
 from fastapi.responses import JSONResponse
+
 import re
 from fastapi.exceptions import RequestValidationError, StarletteHTTPException
+from sqlalchemy.future import select
+from app.models.user import User
 
 
 def serialize_result(result: Any):
@@ -65,3 +70,11 @@ async def create_error_response(exc, status_code, message, request: Request):
             "result": response_result  # Serialized result
         },
     )
+
+
+async def get_user_by_id(user_id: int, db: AsyncSession):
+    result = await db.execute(select(User).where(
+        User.id == user_id,
+        User.is_deleted == False
+        ))
+    return result.scalar_one_or_none()
